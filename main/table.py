@@ -33,19 +33,20 @@ class Cell(object):
 class Row(object):
     def __init__(self, row, header=False, attributes=None):
         if not header:
-            self.row = [Cell(value) for value in row]
+            self.cells = [Cell(value) for value in row]
         else:
-            self.row = [Cell(value,header=True) for value in row]
+            self.cells = [Cell(value,header=True) for value in row]
         self.attributes = attributes
         self.header = header
 
     def __iter__(self):
-        return [cell for cell in self.row]
+        for cell in self.cells:
+            yield cell
 
     def __repr__(self):
         return """<tr{}>{}</tr>""".format(
             '' if self.attributes == None else self.attributes,
-                ''.join(str(cell) for cell in self.row)
+                ''.join(str(cell) for cell in self.cells)
         )
 
 class Table(object):
@@ -53,19 +54,20 @@ class Table(object):
         self.data = data
         self.header = header
         self.attributes = attributes
-        self.table = []
+        self.rows = []
 
         for idx, row in enumerate(data):
             if idx == 0:
-                self.table.append(Row(row,header))
+                self.rows.append(Row(row,header))
             else:
-                self.table.append(Row(row))
+                self.rows.append(Row(row))
 
     def __iter__(self):
-        return [row or row in self.table]
+        for row in self.rows:
+            yield row
 
     def __repr__(self):
         return """<table{}>{}</table>""".format(
             '' if self.attributes == None else self.attributes,
-                ''.join(str(row) for row in self.table)
+                ''.join(str(row) for row in self.rows)
             )
