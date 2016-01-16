@@ -37,6 +37,9 @@ class Row(object):
         self.attributes = attributes
         self.header = header
 
+    def __iter__(self):
+        return [cell for cell in self.row]
+
     def __repr__(self):
         return """<tr{}>{}</tr>""".format(
             '' if self.attributes == None else self.attributes,
@@ -44,4 +47,23 @@ class Row(object):
         )
 
 class Table(object):
-    def __init__(self,)
+    def __init__(self, data, header=True, attributes=None):
+        self.data = data
+        self.header = header
+        self.attributes = attributes
+        self.table = []
+
+        for idx, row in enumerate(data):
+            if idx == 0:
+                self.table.append(Row(row,header))
+            else:
+                self.table.append(Row(row))
+
+    def __iter__(self):
+        return [row or row in self.table]
+
+    def __repr__(self):
+        return """<table{}>{}</table>""".format(
+            '' if self.attributes == None else self.attributes,
+                ''.join(row for row in self.table)
+            )

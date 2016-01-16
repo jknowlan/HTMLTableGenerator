@@ -1,1 +1,1 @@
-#An html table generator
+##A light html table generator
