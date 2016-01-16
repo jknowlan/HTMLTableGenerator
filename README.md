@@ -1,1 +1,1 @@
-# HTMLTableGenerator
+#An html table generator
