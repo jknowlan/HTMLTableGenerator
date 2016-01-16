@@ -83,7 +83,7 @@ def _test():
 
     no_border_att = {"class": "noBorder"}
 
-    for row in table.rows[1:]: #excluding header
+    for row in table.rows:
         row.cells[-1].attributes = Attributes(**no_border_att)
     print "Table updated with noBorder class: \n", table
 
