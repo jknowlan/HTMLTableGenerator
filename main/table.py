@@ -10,7 +10,7 @@ class Attributes(object):
     def __repr__(self):
         attr_lst = [str(key)+'='+'"'+str(value)+'"'
                     for key,value in self.attributes.items()]
-        return ' '.join(attr_lst)
+        return ' '+' '.join(attr_lst)
 
 class Cell(object):
     def __init__(self, value, header=False, attributes=None):
@@ -71,3 +71,21 @@ class Table(object):
             '' if self.attributes == None else self.attributes,
                 ''.join(str(row) for row in self.rows)
             )
+
+def _test():
+    data = (
+        ['Column1', 'Column2', 'Column3', 'Column4','Column5'],
+        [200,300,400,500,600,700],
+        [.1,.2,.3,.4,.5],
+    )
+    table = Table(data)
+    print "Table string: \n", table
+
+    no_border_att = {"class": "noBorder"}
+
+    for row in table.rows[1:]: #excluding header
+        row.cells[-1].attributes = Attributes(**no_border_att)
+    print "Table updated with noBorder class: \n", table
+
+if __name__ == '__main__':
+    _test()
