@@ -21,11 +21,13 @@ class Cell(object):
     def __repr__(self):
         if self.header:
             return """<th{}>{}</th>""".format(
-                    '' if self.attributes == None else self.attributes, value
+                    '' if self.attributes == None
+                    else self.attributes, self.value
                 )
         else:
             return """<td{}>{}</td>""".format(
-                    '' if self.attributes == None else self.attributes, value
+                    '' if self.attributes == None
+                    else self.attributes, self.value
                 )
 
 class Row(object):
@@ -43,7 +45,7 @@ class Row(object):
     def __repr__(self):
         return """<tr{}>{}</tr>""".format(
             '' if self.attributes == None else self.attributes,
-                ''.join(self.row)
+                ''.join(str(cell) for cell in self.row)
         )
 
 class Table(object):
@@ -65,5 +67,5 @@ class Table(object):
     def __repr__(self):
         return """<table{}>{}</table>""".format(
             '' if self.attributes == None else self.attributes,
-                ''.join(row for row in self.table)
+                ''.join(str(row) for row in self.table)
             )
